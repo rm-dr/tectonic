@@ -171,6 +171,7 @@ impl DocumentExt for Document {
             .build_date_from_env(setup_options.deterministic_mode)
             .unstables(UnstableOptions {
                 deterministic_mode: setup_options.deterministic_mode,
+                extra_search_paths: self.extra_paths.clone(),
                 ..Default::default()
             })
             .pass(PassSetting::Default)
@@ -234,6 +235,6 @@ impl WorkspaceCreatorExt for WorkspaceCreator {
             gub.resolve_url(config.default_bundle_loc(), status)?
         };
 
-        Ok(self.create(bundle_loc)?)
+        Ok(self.create(bundle_loc, Vec::new())?)
     }
 }
