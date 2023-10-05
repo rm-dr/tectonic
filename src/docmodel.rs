@@ -165,13 +165,20 @@ impl DocumentExt for Document {
         let mut sess_builder =
             ProcessingSessionBuilder::new_with_security(setup_options.security.clone());
 
+        // Interpret all extra paths as relative to our working dir
+        let extra_paths: Vec<PathBuf> = self
+            .extra_paths
+            .iter()
+            .map(|x| self.src_dir().join(x))
+            .collect();
+
         sess_builder
             .output_format(output_format)
             .format_name(&profile.tex_format)
             .build_date_from_env(setup_options.deterministic_mode)
             .unstables(UnstableOptions {
                 deterministic_mode: setup_options.deterministic_mode,
-                extra_search_paths: self.extra_paths.clone(),
+                extra_search_paths: extra_paths,
                 ..Default::default()
             })
             .pass(PassSetting::Default)

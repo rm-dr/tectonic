@@ -58,7 +58,8 @@ pub struct Document {
     /// Either a URL or a local path.
     pub bundle_loc: String,
 
-    /// Extra search paths for this document.
+    /// Extra local search paths for this document.
+    /// May be absolute or relative to src_dir.
     pub extra_paths: Vec<PathBuf>,
 
     /// The different outputs that are created from the document source. These
