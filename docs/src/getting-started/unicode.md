@@ -11,9 +11,9 @@ We’ve already seen a few ways that Tectonic differs from traditional TeX
 engines. Perhaps the most fundamentally important difference, however, is the
 one that we’ll explore in this section.
 
-**Note:** *This [Getting Started][gs-index] guide uses what we call the [“V2”
+**Note:** *This [Getting Started][gs-index] guide uses what we call the ["V2"
 interface][v2cli] to the Tectonic command-line tool. The V2 interface coexists
-with, but has a fairly different approach than, the [“V1”interface][v1cli]. We
+with, but has a fairly different approach than, the ["V1"interface][v1cli]. We
 are gradually migrating from V1 to V2. Neither interface (V1 or V2) is the same
 as the one exposed by classic TeX tools such as `pdflatex`.*
 
@@ -100,8 +100,8 @@ text.
 ## Unicode Input Text
 
 Tectonic’s support for Unicode broadens its *output* capabilities through the
-use of modern fonts. But that’s not all: Unicode also broadens Tectonic’s the
-*inputs* that Tectonic accepts.
+use of modern fonts. But that’s not all: Unicode also broadens the *inputs* 
+that Tectonic accepts.
 
 With Tectonic, you can type non-English characters directly into your input TeX
 files, which are parsed assuming the virtually-universal [UTF-8 Unicode text
@@ -128,7 +128,7 @@ commands:*
 \^O que ma quille \'eclate! \^O que j'aille \`a la mer!
 ```
 
-Fair enough. But now try typing in [Bashô’s “old pond” haiku][old-pond]:
+Fair enough. But now try typing in [Bashô’s "old pond" haiku][old-pond]:
 
 ```tex
 古池や蛙飛び込む水の音

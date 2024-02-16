@@ -17,11 +17,20 @@ the file are detailed below.
 name = <string>  # the document name
 bundle = <url or filesystem path>  # the source of the TeX bundle
 
+# The doc.metadata table may contain arbitrary data.
+# It does not affect Tectonic in any way.
+[doc.metadata]
+pubish = false
+arr = [1, 2, [6, 7]]
+
+
+
 [[output]]  # one or more output specifications
 name = <string>  # the output's name
 type = <"pdf">  # the output's type
 tex_format = [string]  # optional, defaults to "latex": the TeX format to use
 shell_escape = [bool]  # optional, defaults to false: whether "shell escape" (\write18) is allowed
+shell_escape_cwd = [string]  # optional, defaults to a temporary directory: path to use for \write18
 preamble = [string] # optional, defaults to "_preamble.tex": the preamble file to use (within `src`)
 index = [string] # optional, defaults to "index.tex": the index file to use (within `src`)
 postamble = [string] # optional, defaults to "_postamble.tex": the postamble file to use (within `src`)
@@ -39,7 +48,7 @@ filesystem-friendly.
 
 ### `doc.bundle`
 
-A string identifying the location of the “bundle” of TeX support files
+A string identifying the location of the "bundle" of TeX support files
 underlying the processing of the document.
 
 In most circumstances this value should be a URL. The `tectonic -X new` command
@@ -49,6 +58,12 @@ This field can also be a filesystem path, pointing to either a Zip-format bundle
 or a directory of support files. This mode of operation is discouraged because
 it limits reproducibility. URLs with a `file:` protocol are also treated
 identically to filesystem paths.
+
+### `doc.metadata`
+
+Arbitrary metadata, not read by Tectonic. This table allows us to
+save parameters for external scripts without creating an extra file.
+
 
 ### `output`
 
@@ -69,19 +84,26 @@ which creates a [Portable Document Format][pdf] file.
 
 ### `output.tex_format`
 
-The TeX “format” of preloaded macros to use when compiling the document. The
+The TeX "format" of preloaded macros to use when compiling the document. The
 default is `"latex"`, corresponding to the standard LaTeX format. The exact set
 of formats that are supported will depend on the bundle that is being used.
 
 ### `output.shell_escape`
 
-Whether the TeX “shell escape”, AKA `\write18`, mechanism is allowed. The
+Whether the TeX "shell escape", AKA `\write18`, mechanism is allowed. The
 default is false. Shell-escape is inherently insecure, because its usage
 requires that text from the document compilation is passed directly to the
 operating system shell. It also is inherently unportable, because it requires
 that your document compilation is run in an environment where an operating
 system shell exists and can be invoked. Its use is therefore strongly
 discouraged, but some packages require it.
+
+### `output.shell_escape_cwd`
+
+The working directory path to use for "shell escape". The default is a
+temporary directory if `output.shell_escape` is true, else it's disabled.
+The path can be absolute or relative to the root file, but it must exist.
+Specifying this path automatically sets `output.shell_escape` to true.
 
 ### `output.preamble`
 

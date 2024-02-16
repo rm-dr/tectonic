@@ -49,6 +49,12 @@ pub struct Document {
     /// this will be a subdirectory of `src_dir` named `build`.
     build_dir: PathBuf,
 
+    /// Arbitrary document metadata.
+    /// This has no effect on tectonic's build process.
+    /// Rather, allows users to add easily-accessible information to their documents,
+    /// which may be read by external tools.
+    pub metadata: Option<toml::Value>,
+
     /// The document name. This will be used to name build artifacts and the
     /// like, and so should be relatively filesystem-friendly. It does not
     /// need to be the same as the document title.
@@ -108,6 +114,7 @@ impl Document {
             name: doc.doc.name,
             bundle_loc: doc.doc.bundle,
             extra_paths: doc.doc.extra_paths.unwrap_or(Vec::new()),
+            metadata: doc.doc.metadata,
             outputs,
         })
     }
@@ -136,6 +143,7 @@ impl Document {
                 name: self.name.clone(),
                 bundle: self.bundle_loc.clone(),
                 extra_paths,
+                metadata: None,
             },
             outputs,
         };
@@ -305,6 +313,7 @@ impl Document {
             bundle_loc,
             extra_paths,
             outputs: crate::document::default_outputs(),
+            metadata: None,
         })
     }
 }
@@ -348,6 +357,7 @@ mod syntax {
         pub name: String,
         pub bundle: String,
         pub extra_paths: Option<Vec<PathBuf>>,
+        pub metadata: Option<toml::Value>,
     }
 
     #[derive(Debug, Deserialize, Serialize)]
