@@ -113,7 +113,7 @@ impl Document {
             build_dir: build_dir.into(),
             name: doc.doc.name,
             bundle_loc: doc.doc.bundle,
-            extra_paths: doc.doc.extra_paths.unwrap_or(Vec::new()),
+            extra_paths: doc.doc.extra_paths.unwrap_or_default(),
             metadata: doc.doc.metadata,
             outputs,
         })
@@ -132,7 +132,7 @@ impl Document {
             .map(syntax::OutputProfile::from_runtime)
             .collect();
 
-        let extra_paths = if self.extra_paths.len() == 0 {
+        let extra_paths = if self.extra_paths.is_empty() {
             None
         } else {
             Some(self.extra_paths.clone())
